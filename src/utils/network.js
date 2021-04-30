@@ -2,6 +2,12 @@ const SWAPI__ROOT = 'https://swapi.dev/api/';
 
 const SWAPI__PEOPLE = 'people';
 
+// ** -- export по умолчанию (default) значение может быть только одно 
+// ** -- исп конструкцию try.catch для обработки шибок 
+// **    исп. async await function для ожидания получения данных с сервера 
+// **    нативный метод fetch() для создания запроса на сервер 
+// **    конструкция в try {if()} для перехвата ошибки
+// **    (async()=>{})() используем для формирования универсального асинхронного запроса на сервер 
 
 
 export const getApiResource = async (url) => { //принимаем URL
@@ -21,12 +27,15 @@ export const getApiResource = async (url) => { //принимаем URL
           return false
      }
 }
-getApiResource(SWAPI__ROOT + SWAPI__PEOPLE);
 
-      // // добываем данные:
-          // .then(res => res.json())
-          // .then(body => console.log(body))
-          // //обработка ошибок
-          // .catch(error => console.log(error.message))
+(async()=>{
+     const body = await getApiResource(SWAPI__ROOT + SWAPI__PEOPLE);
+     console.log(body);
+})();
+
+// getApiResource(SWAPI__ROOT + SWAPI__PEOPLE) // return Promise
+//      .then(body=> console.log(body))
+
+
 
 
