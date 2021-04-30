@@ -1,7 +1,5 @@
 
 import styles from './App.module.css'; //import modules -> object {key:values}
-// eslint-disable-next-line no-unused-vars
-import { getApiResource } from '../../utils/network'; //  import {name function}
 
 const App = () => {
   return (
@@ -10,3 +8,4 @@ const App = () => {
 }
 
 export default App;
+

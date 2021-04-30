@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 const SWAPI__ROOT = 'https://swapi.dev/api/';
-
+/* eslint-disable no-unused-vars */
 const SWAPI__PEOPLE = 'people';
 
 // ** -- export по умолчанию (default) значение может быть только одно 
@@ -28,10 +29,10 @@ export const getApiResource = async (url) => { //принимаем URL
      }
 }
 
-(async()=>{
-     const body = await getApiResource(SWAPI__ROOT + SWAPI__PEOPLE);
-     console.log(body);
-})();
+// (async()=>{
+//      const body = await getApiResource(SWAPI__ROOT + SWAPI__PEOPLE);
+//      console.log(body);
+// })();
 
 // getApiResource(SWAPI__ROOT + SWAPI__PEOPLE) // return Promise
 //      .then(body=> console.log(body))
