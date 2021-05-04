@@ -1,3 +1,5 @@
+//*======================================= КОМПОНЕНТ - КОНТЕЙНЕР ==========================================================*//
+
 /* eslint-disable no-unused-vars */
 /**
  ** Подключаем компонент getApiResource:
@@ -18,13 +20,22 @@
           8.2) перебираем people.map и выводим при каждой итерации элементы списка li
           8.3) указываем каждому элементу li уникальный ключ key={name}, для алгоритма реконселяции который использует react 
           *! алгоритм реконселяции - если данные не поменялись то по новой их отрисовать не нужно 
+    ** 9) создаем и импортируем функцию getPeopleId(url), получения id по url
+          9.1 передаем URL возвращает id
+    ** 10) импортируем функцию getPeopleImage
+          10.1 передаем id в данную функцию и получаем корректную ссылку на изображение персонажей
+          10.2 возвращаем новый объект {id,name,img}
+          10.3 потом снова перебираем people.map()
+          10.4 по циклу обрисовываем html разметку 
  */
 
 import { useState, useEffect } from 'react';
 import { getApiResource } from '../../utils/network';
+import { API_PEOPLE } from '../../constants/api';
+import {getPeopleId, getPeopleImage} from '../../services/getPeopleData';
+
 import styles from './PeoplePage.module.css';
 
-import { API_PEOPLE } from '../../constants/api'
 
 //* Функциональный компонент 
 const PeoplePage = () => {
@@ -32,11 +43,14 @@ const PeoplePage = () => {
 
      const getResource = async (url) => {  // передали url через useEffect в getResource(API__PEOPLE)
           const res = await getApiResource(url); // запрос на сервер по URL 
-          console.log(res);
+
           const peopleList = res.results.map(({ name, url }) => { // results это ключ в объекте // 
+               const id = getPeopleId(url);
+               const img = getPeopleImage(id);
                return {
+                    id,
                     name,
-                    url
+                    img
                }
           });
           setPeople(peopleList);
@@ -52,8 +66,11 @@ const PeoplePage = () => {
           <>
                {people && (
                     <ul>
-                         {people.map(({ name, url }) =>
-                              <li key={name}>{name}</li>
+                         {people.map(({id, name, img}) =>
+                              <li key={id}>
+                                   <img src={img} alt={name}/>
+                                   <p>{name}</p>
+                              </li>
                          )}
                     </ul>
                )}
