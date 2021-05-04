@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-const SWAPI__ROOT = 'https://swapi.dev/api/';
-/* eslint-disable no-unused-vars */
-const SWAPI__PEOPLE = 'people';
-
 // ** -- export по умолчанию (default) значение может быть только одно 
 // ** -- исп конструкцию try.catch для обработки шибок 
 // **    исп. async await function для ожидания получения данных с сервера 
