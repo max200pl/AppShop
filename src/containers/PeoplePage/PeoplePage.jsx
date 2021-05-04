@@ -27,12 +27,16 @@
           10.2 возвращаем новый объект {id,name,img}
           10.3 потом снова перебираем people.map()
           10.4 по циклу обрисовываем html разметку 
+    ** 11) подключаем PeopleList.jsx 
+          11.1 выносим весь список UL в отдельный компонент PeopleList
+          11.2 передаем массив объектов в PeopleList через <PeopleList people = {people}/> так называемые пропсы
  */
 
 import { useState, useEffect } from 'react';
 import { getApiResource } from '../../utils/network';
 import { API_PEOPLE } from '../../constants/api';
 import {getPeopleId, getPeopleImage} from '../../services/getPeopleData';
+import PeopleList from "../../components/PeoplePage/PeopleList/PeopleList";
 
 import styles from './PeoplePage.module.css';
 
@@ -64,16 +68,7 @@ const PeoplePage = () => {
      return (
           // фрагмент, невидимый элемент, нужно возвращать только один элемент 
           <>
-               {people && (
-                    <ul>
-                         {people.map(({id, name, img}) =>
-                              <li key={id}>
-                                   <img src={img} alt={name}/>
-                                   <p>{name}</p>
-                              </li>
-                         )}
-                    </ul>
-               )}
+               {people && <PeopleList people = {people}/>} 
           </>
      )
 }
