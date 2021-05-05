@@ -16,4 +16,4 @@ const getId = (url, category) => {
 // получем id, person через ссылку. 
 export const getPeopleId = url => getId(url, SWAPI_PEOPLE); // принимает url =>  getId() возвращает id  стрелочная функция возвращает url 
 // формируем нужную ссылку на изображение 
-export const getPeopleImage = id => `${URL_IMG_PERSON}/${id+GUIDE_IMG_EXTENSION}`;
+export const getPeopleImage = id => `${URL_IMG_PERSON}/${id+GUIDE_IMG_EXTENSION}`; //возвращаем новую ссылку с персонажем

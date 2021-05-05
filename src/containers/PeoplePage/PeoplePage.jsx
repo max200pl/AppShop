@@ -2,40 +2,37 @@
 
 /* eslint-disable no-unused-vars */
 /**
- ** Подключаем компонент getApiResource:
-    ** 1) Подключаем хук useEffect для чего?
-    ** 2) Подключим константу c URL {API__PEOPLE}
-    ** 3) создаем getResource = 
-       3.1) Вызываем getResource() в callBack function useEffect(()=>{}) 
-            Передаем в  getResource(API__PEOPLE)
-    ** 4) Создаем переменную res = 
-       4.1 через асинхронную функцию await getApiResource(API__PEOPLE) делаем запрос на сервер 
-    ** 5) деструктурируем полученные данные через метод .map({name,url})
-    ** 6) для хранения состояние подключим useState
+     ** Подключаем функцию getApiResource в utils:
+     ** 1) Подключаем хук useEffect для чего?
+     ** 2) Подключим константу c URL {API__PEOPLE}
+     ** 3) создаем useEffect =>  callBack function
+     ** 3.1) создаем getResource
+          3.1) Передаем и вызываем getResource(API__PEOPLE)
+     ** 4) Создаем переменную res = 
+          4.1 через асинхронную функцию await getApiResource(API__PEOPLE) делаем запрос на сервер 
+     ** 5) создаем переменную peopleList:
+          5.1 деструктурируем полученные данные через метод .map({name,url})
+          5.2 создаем функции получения id персонажа (getPeopleId) и url img (getPeopleImage)
+          * 5.3 возвращаем объект {id, name, img} и передаем его setPeople(peopleList)
+     ** 6) для хранения состояние подключим useState
           6.1 используем деструктивное присваивание  const [people, statePeople]
           6.2 useState возвращает массива с двумя элементами  people = arr[0]; statePeople = arr[1];
-    ** 7) передаем  setPeople объект с имением персонажа и ссылкой на него
-    ** 8) возвращаем html разметку если 
-          8.1) useState не null, проверяем через тернарный оператор  {if people true && (<><ul>{people.map}</ul></>)
-          8.2) перебираем people.map и выводим при каждой итерации элементы списка li
-          8.3) указываем каждому элементу li уникальный ключ key={name}, для алгоритма реконселяции который использует react 
-          *! алгоритм реконселяции - если данные не поменялись то по новой их отрисовать не нужно 
-    ** 9) создаем и импортируем функцию getPeopleId(url), получения id по url
-          9.1 передаем URL возвращает id
-    ** 10) импортируем функцию getPeopleImage
-          10.1 передаем id в данную функцию и получаем корректную ссылку на изображение персонажей
-          10.2 возвращаем новый объект {id,name,img}
-          10.3 потом снова перебираем people.map()
-          10.4 по циклу обрисовываем html разметку 
-    ** 11) подключаем PeopleList.jsx 
-          11.1 выносим весь список UL в отдельный компонент PeopleList
-          11.2 передаем массив объектов в PeopleList через <PeopleList people = {people}/> так называемые пропсы
+     ** 8) создаем и подключаем PeopleList.jsx 
+          8.1 выносим весь список UL в отдельный компонент PeopleList
+     ** 9) возвращаем html разметку если 
+          9.1) useState не null, проверяем через тернарный оператор  {if people true && <PeopleList people={people}</>)
+          9.2 передаем массив объектов в PeopleList через <PeopleList people = {people}/> так называемые пропсы
+
+          
+    
+         
+    
  */
 
 import { useState, useEffect } from 'react';
 import { getApiResource } from '../../utils/network';
 import { API_PEOPLE } from '../../constants/api';
-import {getPeopleId, getPeopleImage} from '../../services/getPeopleData';
+import { getPeopleId, getPeopleImage } from '../../services/getPeopleData';
 import PeopleList from "../../components/PeoplePage/PeopleList/PeopleList";
 
 import styles from './PeoplePage.module.css';
@@ -56,7 +53,9 @@ const PeoplePage = () => {
                     name,
                     img
                }
+               // возвращаем объект {id,name,img}
           });
+          // и передаем объект в setPeople
           setPeople(peopleList);
      }
 
@@ -68,7 +67,7 @@ const PeoplePage = () => {
      return (
           // фрагмент, невидимый элемент, нужно возвращать только один элемент 
           <>
-               {people && <PeopleList people = {people}/>} 
+               {people && <PeopleList people={people} />}
           </>
      )
 }
