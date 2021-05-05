@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /**
      ** 1 делаем деструктуризацию пропсов c ===>  const [people, setPeople]  = useState()
      ** 2 перебираем people.map и выводим при каждой итерации элементы списка li       
@@ -8,7 +9,7 @@
 
 import styles from './PeopleList.module.css';
 
-const PeopleList = ({ people }) => { // 
+const PeopleList = ({ people }) => { 
      return (
           <>
                <ul className={styles.list__container}>

@@ -8,7 +8,7 @@
 
 export const getApiResource = async (url) => { //принимаем URL
      try {
-          const res = await fetch(url) // нативный метод fetch() передаем URL делаем запрос
+          const res = await fetch(url); // нативный метод fetch() передаем URL делаем запрос
 
           // обработка ошибки при уже неправильно полученных данных
           if (!res.ok) {
@@ -19,7 +19,7 @@ export const getApiResource = async (url) => { //принимаем URL
           return await res.json(); // возвращаем res.json 
      // обработка ошибки при получении данных
      } catch (error) {
-          console.log('Could not fetch.', error.message);
+          console.error('Could not fetch.', error.message);
           return false
      }
 }
