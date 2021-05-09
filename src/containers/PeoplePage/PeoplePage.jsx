@@ -25,11 +25,19 @@
           8.1 выносим весь список UL в отдельный компонент PeopleList
      ** 9) возвращаем html разметку если 
           9.1) useState не null, проверяем через тернарный оператор  {if people true && <PeopleList people={people}</>)
-          9.2 передаем массив объектов в PeopleList через <PeopleList people = {people}/> так называемые пропсы
+          9.2) передаем массив объектов в PeopleList через <PeopleList people = {people}/> так называемые пропсы
+     ** 10) подключаем whitErrorApi оборачивая весь компонент 
+          10.1) оборачиваем весь компонент в hoc-helpers И ЭКСПОРТИРУЕМ ===> export default whitErrorApi(PeoplePage); 
+          10.2) в компоненте PeoplePage появиться prop ===> setErrorApi={setErrorApi} 
+          10.3) передаем в PeoplePage через ===> const PeoplePage = ({ setErrorApi }) =>{}
+          10.4) меняем setErrorApi в зависимости от удачного запроса ===> if (res): true or false 
+          10.5) при рединге в withErrorApi.jsx ===> errorApi : true or false 
+               10.5.1) через тернарный оператор рендерим ошибку или компонент View 
+          *! 10.6) Для удобства не изменять jsx у PeoplePage
  */
 
 import { useState, useEffect } from 'react';
-import {whitErrorApi} from '../../hoc-helpers/whitErrorApi'
+import { whitErrorApi } from '../../hoc-helpers/whitErrorApi'
 import { getApiResource } from '../../utils/network';
 import { API_PEOPLE } from '../../constants/api';
 import { getPeopleId, getPeopleImage } from '../../services/getPeopleData';
@@ -39,7 +47,7 @@ import styles from './PeoplePage.module.css';
 
 
 //* Функциональный компонент 
-const PeoplePage = ({setErrorApi}) => {
+const PeoplePage = ({ setErrorApi }) => {
      const [people, setPeople] = useState(null); // изначально useState(неопределенно)
 
      const getResource = async (url) => {  // передали url через useEffect в getResource(API__PEOPLE)
@@ -80,4 +88,4 @@ const PeoplePage = ({setErrorApi}) => {
      )
 }
 
-export default whitErrorApi(PeoplePage);
+export default whitErrorApi(PeoplePage); // оборачиваем компонент PeoplePage компонентом whitErrorApi и навешиваем новые данные на компонент в зависимости от состояния setErrorApi
