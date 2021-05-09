@@ -37,11 +37,11 @@
  */
 
 import { useState, useEffect } from 'react';
-import { whitErrorApi } from '../../hoc-helpers/whitErrorApi'
-import { getApiResource } from '../../utils/network';
-import { API_PEOPLE } from '../../constants/api';
-import { getPeopleId, getPeopleImage } from '../../services/getPeopleData';
-import PeopleList from "../../components/PeoplePage/PeopleList/PeopleList";
+import { whitErrorApi } from '@hoc-helpers/whitErrorApi'
+import { getApiResource } from '@utils/network';
+import { API_PEOPLE } from '@constants/api';
+import { getPeopleId, getPeopleImage } from '@services/getPeopleData';
+import PeopleList from "@components/PeoplePage/PeopleList";
 
 import styles from './PeoplePage.module.css';
 

@@ -12,7 +12,7 @@
 
 
 import { useState } from 'react'; 
-import ErrorMassage from '../components/ErrorMessage/ErrorMessage'
+import ErrorMassage from '@components/ErrorMessage/ErrorMessage'
 
 export const whitErrorApi = View => {
      return props => {
