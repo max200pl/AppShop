@@ -35,15 +35,21 @@
                10.5.1) через тернарный оператор рендерим ошибку или компонент View 
           *! 10.6) Для удобства не изменять jsx у PeoplePage
  */
-
+//* ========== ORDER import:
+// Library 
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// HOC
 import { whitErrorApi } from '@hoc-helpers/whitErrorApi'
-import { getApiResource } from '@utils/network';
-import { API_PEOPLE } from '@constants/api';
-import { getPeopleId, getPeopleImage } from '@services/getPeopleData';
+// Component 
 import PeopleList from "@components/PeoplePage/PeopleList";
-
+// Utils 
+import { getApiResource } from '@utils/network';
+// Constant 
+import { API_PEOPLE } from '@constants/api';
+// Services 
+import { getPeopleId, getPeopleImage } from '@services/getPeopleData';
+// Style
 import styles from './PeoplePage.module.css';
 
 
@@ -92,7 +98,7 @@ const PeoplePage = ({ setErrorApi }) => {
 
 //* проверяем на тип данных возвращаемых с пропсов setErrorApi
 PeoplePage.propTypes = {
-     setErrorApi: PropTypes.func 
+     setErrorApi: PropTypes.func
 }
 
 export default whitErrorApi(PeoplePage); // оборачиваем компонент PeoplePage компонентом whitErrorApi и навешиваем новые данные на компонент в зависимости от состояния setErrorApi
