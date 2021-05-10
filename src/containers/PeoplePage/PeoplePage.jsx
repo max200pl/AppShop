@@ -37,6 +37,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { whitErrorApi } from '@hoc-helpers/whitErrorApi'
 import { getApiResource } from '@utils/network';
 import { API_PEOPLE } from '@constants/api';
@@ -86,6 +87,12 @@ const PeoplePage = ({ setErrorApi }) => {
           </>
 
      )
+}
+
+
+//* проверяем на тип данных возвращаемых с пропсов setErrorApi
+PeoplePage.propTypes = {
+     setErrorApi: PropTypes.func 
 }
 
 export default whitErrorApi(PeoplePage); // оборачиваем компонент PeoplePage компонентом whitErrorApi и навешиваем новые данные на компонент в зависимости от состояния setErrorApi

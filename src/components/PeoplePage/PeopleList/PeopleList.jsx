@@ -5,8 +5,13 @@
      ** 3 по циклу обрисовываем html разметку передавая данные с полученного объекта
      ** 4 указываем каждому элементу li уникальный ключ key={id}, для алгоритма реконселяции который использует react 
      *! алгоритм реконселяции - если данные не поменялись то по новой их отрисовать не нужно 
-*/
+     ==============PropTypes================
+     ** 1) подключаем 'prop-types' для определения типа передаваемых данных через пропсы 
+        1.1 вызываем метод .propTypes 
+        1.2 присваиваем объект с ключом people: и свойством в котором указан тип пропса 
 
+*/
+import PropTypes from 'prop-types';
 import styles from './PeopleList.module.css';
 
 const PeopleList = ({ people }) => { 
@@ -24,6 +29,10 @@ const PeopleList = ({ people }) => {
                </ul>
           </>
      )
+}
+
+PeopleList.propTypes = {
+     people: PropTypes.array
 }
 
 export default PeopleList;
