@@ -34,6 +34,7 @@
           10.5) при рединге в withErrorApi.jsx ===> errorApi : true or false 
                10.5.1) через тернарный оператор рендерим ошибку или компонент View 
           *! 10.6) Для удобства не изменять jsx у PeoplePage
+     ** 11) подключаем useQueryParams для получения объекта 
  */
 //* ========== ORDER import:
 // Library 
@@ -41,14 +42,19 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // HOC
 import { whitErrorApi } from '@hoc-helpers/whitErrorApi'
-// Component 
+// Component
 import PeopleList from "@components/PeoplePage/PeopleList";
+import PeopleNavigation from "@components/PeoplePage/PeopleNavigation";
 // Utils 
-import { getApiResource } from '@utils/network';
+import { getApiResource, changeHTTP } from '@utils/network';
 // Constant 
 import { API_PEOPLE } from '@constants/api';
 // Services 
-import { getPeopleId, getPeopleImage } from '@services/getPeopleData';
+import { getPeopleId, getPeopleImage, getPeoplePageId } from '@services/getPeopleData';
+// Hook
+import { useQueryParams } from "@hooks/hooksQueryParams";
+
+
 // Style
 import styles from './PeoplePage.module.css';
 
@@ -56,6 +62,13 @@ import styles from './PeoplePage.module.css';
 //* Функциональный компонент 
 const PeoplePage = ({ setErrorApi }) => {
      const [people, setPeople] = useState(null); // изначально useState(неопределенно)
+     const [prevPage, setPrevPage] = useState(null); 
+     const [nexPage, setNextPage] = useState(null); 
+     const [counterPage, setCounterPage] = useState(1);
+     
+     const query = useQueryParams();
+     const queryPage = query.get("page");
+    // console.log(queryPage, nexPage, prevPage);
 
      const getResource = async (url) => {  // передали url через useEffect в getResource(API__PEOPLE)
           const res = await getApiResource(url); // запрос на сервер по URL 
@@ -74,6 +87,11 @@ const PeoplePage = ({ setErrorApi }) => {
 
                // и передаем объект в setPeople
                setPeople(peopleList);
+               // 
+               setPrevPage(changeHTTP(res.previous));
+               setNextPage(changeHTTP(res.next));
+               setCounterPage(getPeoplePageId(url));
+
                setErrorApi(false);
           } else {
                setErrorApi(true);// устанавливаем в tru если произошла ошибка запроса данных 
@@ -82,13 +100,19 @@ const PeoplePage = ({ setErrorApi }) => {
 
      // используем хук useEffect 
      useEffect(() => { // принимает два аргумента 1) callBack function 2) массив зависимостей
-          getResource(API_PEOPLE); // передаем URL через callBack function и вызываем 
+          getResource(API_PEOPLE+queryPage); // передаем URL через callBack function и вызываем 
      }, [])
 
      return (
           // фрагмент, невидимый элемент, нужно возвращать только один элемент 
           // передаем пропсы в PeopleList и он нам возвращает разметку при условии что people не null
           <>
+               <PeopleNavigation 
+                    getResource={getResource}
+                    prevPage={prevPage}
+                    nexPage={nexPage}
+                    counterPage={counterPage}
+               />
                { people && <PeopleList people={people} />}
           </>
 

@@ -6,6 +6,25 @@
 // **    (async()=>{})() используем для формирования универсального асинхронного запроса на сервер 
 
 
+
+
+import {HTTP, HTTPS} from '@constants/api';
+
+/**
+ * Изменяет URL c HTTP на HTTPS
+ * @param {string} url - url для изменения 
+ * @returns {string} - url c HTTPS 
+ */
+export const changeHTTP = url =>{
+     const result = url ? url.replace(HTTP, HTTPS) :url;
+     return result;
+} ;
+
+/**
+ * Отправляет запрос fetch
+ * @param {string} url - url для запроса  
+ * @returns {Promise} - Promise с результатом запроса 
+ */
 export const getApiResource = async (url) => { //принимаем URL
      try {
           const res = await fetch(url); // нативный метод fetch() передаем URL делаем запрос

@@ -1,12 +1,22 @@
 import {
         HTTP, SWAPI_ROOT, SWAPI_PEOPLE,
-        GUIDE_IMG_EXTENSION, URL_IMG_PERSON
+        GUIDE_IMG_EXTENSION, URL_IMG_PERSON, SWAPI_PARAM_PAGE
 }
         from '@constants/api';
+export const getPeoplePageId = url =>{
+       // SWAPI_PARAM_PAGE
+       const pos = url.lastIndexOf(SWAPI_PARAM_PAGE);
+       const id = url.slice(pos+SWAPI_PARAM_PAGE.length, url.length);
+        console.log(id); 
+
+        return Number(id)
+};
+
 /**
  * 
- * @param {ссылка на фото} url 
- * @param {категория фото} category // корабли, люди и.т.д.
+ * @param {} url - ссылка на фото
+ * @param {} category - категория фото // корабли, люди и.т.д.
+ * 
  */
 const getId = (url, category) => {
         //определяем идентификатор c url ссылки 
